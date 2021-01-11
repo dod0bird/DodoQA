@@ -13,7 +13,7 @@ $(document).ready(function() {
             console.log('response: ' + response);
             $('#answers').empty();
             response.forEach(function(answer) {
-                $('#answers').append($("<div class='card mb-3'><div class='card-body'>" + answer + "</div></div>"));
+                $('#answers').append($("<div class='card mb-3 border-info'><div class='card-body'>" + answer + "</div></div>"));
             });
         }).fail(function(jqXHR, textStatus) {
             console.log("Request failed: " + textStatus);
