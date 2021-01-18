@@ -134,7 +134,7 @@ def rescore(question, hits):
 
     # Get both retrieval (search) score and reader (ALBERT) score
     combined_scores = []
-    min_retrieval_score, max_retrieval_score = 100000, -1
+    max_retrieval_score = -1
     with open("/tmp/nbest_predictions.json") as f:
         nbest_file = json.load(f)
 
@@ -146,7 +146,6 @@ def rescore(question, hits):
 
             retrieved_passage = json.loads(hits[int(key)].raw)
             retrieval_score = hits[int(key)].score
-            min_retrieval_score = min(min_retrieval_score, retrieval_score)
             max_retrieval_score = max(max_retrieval_score, retrieval_score)
 
             reader_score = nbest_file[key][0]['probability']
@@ -162,8 +161,8 @@ def rescore(question, hits):
 
     # Normalize scores and calculate combined score
     for d in combined_scores:
-        d['retrieval_score'] = (d['retrieval_score'] - min_retrieval_score) / max(0.00001, max_retrieval_score - min_retrieval_score)
-        d['combined_score'] = 0.7 * d['retrieval_score'] + 0.3 * d['reader_score']
+        d['retrieval_score'] = d['retrieval_score'] / max(0.00001, max_retrieval_score)
+        d['combined_score'] = 0.98 * d['retrieval_score'] + 0.02 * d['reader_score']
 
     # Re-rank scores
     combined_scores.sort(key=lambda d: d['combined_score'], reverse=True)
