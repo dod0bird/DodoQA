@@ -23,7 +23,7 @@ $(document).ready(function() {
                     if (index >= 0) {
                         var highlightedContext = answer.context.substring(0, index) + "<span class='bg-warning'>" + answer.context.substring(index, index+answer.answer.length) + "</span>" + answer.context.substring(index + answer.answer.length);
                     }
-                    $('#answers').html(
+                    $('#answers').append(
                         $(
                             "<div class='card mb-3 border-info'><div class='card-body'>" +
                             "<blockquote class='blockquote'><p class=''>" + highlightedContext + "</p>" +
