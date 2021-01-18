@@ -1,2 +1,7 @@
+*.DS_STORE
 *.pyc
+*.swp
 .idea/
+enwiki-20210101.tar.gz
+index-parts/
+passages-index/
